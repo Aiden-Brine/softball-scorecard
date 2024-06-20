@@ -1,0 +1,4 @@
+{
+  "python.analysis.typeCheckingMode": "basic",
+  "python.defaultInterpreterPath": "/Users/aidenbrine/Code/Django React Todo/.venv/bin/python3"
+}
