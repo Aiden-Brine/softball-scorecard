@@ -6,7 +6,6 @@ class Game(models.Model):
     opponent = models.CharField(max_length=120)
     home_team = models.BooleanField()
     date = models.DateField()
-    innings = models.ForeignKey("Inning", on_delete=models.CASCADE)
 
     def _str_(self):
         home_team_name, away_team_name = (
@@ -18,6 +17,7 @@ class Game(models.Model):
 
 
 class Inning(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
     number = models.PositiveSmallIntegerField()
     top_frame = models.OneToOneField(
         "Frame", on_delete=models.CASCADE, related_name="top"

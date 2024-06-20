@@ -1,13 +1,13 @@
 import graphene
-from graphene_django import DjangoObjectType
+from graphene_django import DjangoListField, DjangoObjectType
 
 from games.models import Game, Inning, Frame
 
 
-class GameType(DjangoObjectType):
+class FrameType(DjangoObjectType):
     class Meta:
-        model = Game
-        fields = ("id", "opponent", "home_team", "date", "innings")
+        model = Frame
+        fields = ("id", "score")
 
 
 class InningType(DjangoObjectType):
@@ -16,10 +16,12 @@ class InningType(DjangoObjectType):
         fields = ("id", "number", "top_frame", "bottom_frame")
 
 
-class FrameType(DjangoObjectType):
+class GameType(DjangoObjectType):
+    innings = DjangoListField(InningType)
+
     class Meta:
-        model = Frame
-        fields = ("id", "score")
+        model = Game
+        fields = ("id", "opponent", "home_team", "date", "innings")
 
 
 class Query(graphene.ObjectType):
