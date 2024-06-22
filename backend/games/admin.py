@@ -3,7 +3,7 @@ from games.models import Game, Inning, Frame
 
 
 class GameAdmin(admin.ModelAdmin):
-    list_display = ("opponent", "home_team", "date")
+    list_display = ("opponent", "is_home", "date")
 
 
 class InningAdmin(admin.ModelAdmin):
