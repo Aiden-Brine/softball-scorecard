@@ -1,0 +1,63 @@
+@import '~bootstrap/scss/bootstrap';
+$col-width: 200px;
+table{
+   border-collapse: collapse;
+}
+th {
+    width: $col-width;
+}
+
+tr {
+    border: 1px solid black;
+}
+td {
+    border: 1px solid black;
+    font-size: 20px;
+}
+.gamePage {
+    width: 600px;
+}
+
+.frame-data-cell {
+    &:hover {
+        background-color: rgba(155, 246, 187, 0.966) !important
+    }
+    &--selected{
+        background-color: rgba(155, 246, 187, 0.966)
+    }
+}
+.frame {
+    height: 20px;
+    font-size: 20px;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &--selected {
+        justify-content: space-between;
+    }
+}
+.incrementer{
+}
+.decrementer{
+}
+.game{
+    margin: 100px
+}
+#selected-cell {
+    background-color: rgba(155, 246, 187, 0.966)
+}
+.scoreChangeIcon {
+    font-size: 20px;
+}
+.scoreChanger {
+    padding-top:none;
+    border: none;
+    background-color: rgba(155, 246, 187, 0.966)
+}
+.foo {
+    width: 200px
+}
+.foo-bar {
+    width:50px;
+}
