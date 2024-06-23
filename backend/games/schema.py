@@ -1,49 +1,73 @@
+"""
+games app GraphQL schema
+"""
+
 import graphene
 from django.conf import settings
-from graphene_django import DjangoListField, DjangoObjectType
+from django.db import transaction
+from django.db.models import QuerySet
+from graphene_django import DjangoObjectType
+from graphql.type import GraphQLResolveInfo
 
 from games.models import Game, Inning, Frame
 
 
 class FrameType(DjangoObjectType):
+    """
+    Frame object type
+    """
+
     class Meta:
         model = Frame
         fields = ("id", "score")
 
 
 class InningType(DjangoObjectType):
+    """
+    Inning object type
+    """
+
     class Meta:
         model = Inning
         fields = ("id", "number", "top_frame", "bottom_frame")
 
 
 class GameType(DjangoObjectType):
+    """
+    Game object type
+    """
+
     innings = graphene.List(InningType)
 
     class Meta:
         model = Game
         fields = ("id", "opponent", "is_home", "date", "innings")
 
-    def resolve_innings(self, info):
-        return self.innings.all()
-
-
-class Query(graphene.ObjectType):
-    games = graphene.List(GameType)
-
-    def resolve_games(self, info):
-        return Game.objects.all()
+    def resolve_innings(self, info: GraphQLResolveInfo) -> QuerySet:
+        del info
+        # self.innings is being mistyped as a List instead of a QuerySet
+        return self.innings.all()  # type: ignore
 
 
 class CreateGame(graphene.Mutation):
+    """
+    Mutation to generate a new Game
+    """
+
     class Arguments:
         opponent = graphene.String()
         is_home = graphene.Boolean()
 
     game = graphene.Field(GameType, required=True)
 
-    # @transaction.automic
-    def mutate(self, info, opponent, is_home):
+    @transaction.atomic
+    def mutate(
+        self, info: GraphQLResolveInfo, opponent: str, is_home: bool
+    ) -> "CreateGame":
+        """
+        Create a game and its related innings and frames
+        """
+        del info
         game = Game.objects.create(opponent=opponent, is_home=is_home)
         for inning in range(1, settings.NUM_INNINGS + 1):
             top_frame = Frame.objects.create()
@@ -51,33 +75,31 @@ class CreateGame(graphene.Mutation):
             Inning.objects.create(
                 game=game, number=inning, top_frame=top_frame, bottom_frame=bottom_frame
             )
-        return CreateGame(game=game)
+        # This is the recommended approach:
+        # https://docs.graphene-python.org/en/latest/types/mutations/
+        return CreateGame(game=game)  # type: ignore
 
 
 class UpdateScore(graphene.Mutation):
+    """
+    Mutation to update the score of a frame
+    """
+
     class Arguments:
         frame_id = graphene.ID()
         new_score = graphene.Int()
 
-    # game = graphene.Field(GameType, required=True)
     frame = graphene.Field(FrameType, required=True)
 
-    # @transaction.automic
-    def mutate(self, info, frame_id, new_score):
-        # from ipdb import set_trace
-
-        # set_trace()
+    def mutate(
+        self, info: GraphQLResolveInfo, frame_id: int, new_score: int
+    ) -> "UpdateScore":
+        """
+        Update the score of Frame with frame_id to new_score
+        """
+        del info
         frame = Frame.objects.get(id=frame_id)
         frame.score = new_score
         frame.save()
-        # game = Game.objects.get(innings=frame.inning)
 
-        return UpdateScore(frame=frame)
-
-
-class Mutation(graphene.ObjectType):
-    create_game = CreateGame.Field()
-    update_score = UpdateScore.Field()
-
-
-schema = graphene.Schema(query=Query, mutation=Mutation)
+        return UpdateScore(frame=frame)  # type: ignore

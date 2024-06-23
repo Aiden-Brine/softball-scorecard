@@ -1,15 +1,23 @@
-from django.db import models
+"""
+games app models module
+"""
+
 from django.conf import settings
+from django.db import models
 from django.db.models import Q
 from datetime import datetime
 
 
 class Game(models.Model):
+    """
+    Model to represent a softball game
+    """
+
     opponent = models.CharField(max_length=120)
     is_home = models.BooleanField()
     date = models.DateTimeField(default=datetime.now)
 
-    def _str_(self):
+    def _str_(self) -> str:
         home_team_name, away_team_name = (
             (settings.TEAM_NAME, self.opponent)
             if self.is_home
@@ -22,6 +30,10 @@ class Game(models.Model):
 
 
 class Inning(models.Model):
+    """
+    Model to represent an inning for a Game
+    """
+
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="innings")
     number = models.PositiveSmallIntegerField()
     top_frame = models.OneToOneField(
@@ -36,8 +48,12 @@ class Inning(models.Model):
 
 
 class Frame(models.Model):
+    """
+    Model to represent either the top or bottom frame of an Inning
+    """
+
     score = models.PositiveSmallIntegerField(default=0)
 
     @property
-    def inning(self):
+    def inning(self) -> Inning:
         return Inning.objects.get(Q(top_frame=self) | Q(bottom_frame=self))
