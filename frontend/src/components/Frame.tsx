@@ -1,17 +1,30 @@
 import { useMutation } from "@apollo/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareMinus, faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import { FrameType } from "../gql/graphql";
 
 import { UPDATE_SCORE } from "../games.graphql";
-const Frame = ({ frameId, score, selectedFrameId, setSelectedFrameId }) => {
+
+interface FrameProps {
+  frame: FrameType;
+  selectedFrameId: number | null;
+  setSelectedFrameId: (frameId: number | null) => void;
+}
+
+const Frame: React.FC<FrameProps> = ({
+  frame,
+  selectedFrameId,
+  setSelectedFrameId,
+}) => {
+  const frameId = Number(frame.id);
   const isSelected = selectedFrameId === frameId;
-  const [updateScore, { data, loading, error }] = useMutation(UPDATE_SCORE);
+  const [updateScore] = useMutation(UPDATE_SCORE);
   const handleClick = () => {
     setSelectedFrameId(frameId);
   };
   const handleScoreUpdate = (value: number) => {
     updateScore({
-      variables: { frameId: frameId, newScore: score + value },
+      variables: { frameId: frame.id, newScore: frame.score + value },
     });
   };
   return (
@@ -33,7 +46,7 @@ const Frame = ({ frameId, score, selectedFrameId, setSelectedFrameId }) => {
             </button>
           </div>
         )}
-        <div className="score">{score}</div>
+        <div className="score">{frame.score}</div>
         {isSelected && (
           <div className="incrementer" onClick={() => handleScoreUpdate(1)}>
             <button className="scoreChanger">

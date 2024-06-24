@@ -37,7 +37,7 @@ class GameType(DjangoObjectType):
     Game object type
     """
 
-    innings = graphene.List(InningType)
+    innings = graphene.List(graphene.NonNull(InningType), required=True)
 
     class Meta:
         model = Game

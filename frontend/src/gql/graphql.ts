@@ -40,7 +40,7 @@ export type GameType = {
   __typename?: 'GameType';
   date: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  innings?: Maybe<Array<Maybe<InningType>>>;
+  innings: Array<InningType>;
   isHome: Scalars['Boolean']['output'];
   opponent: Scalars['String']['output'];
 };
@@ -92,7 +92,7 @@ export type UpdateScore = {
 export type GetGamesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetGamesQuery = { __typename?: 'Query', games?: Array<{ __typename?: 'GameType', id: string, opponent: string, isHome: boolean, date: any, innings?: Array<{ __typename?: 'InningType', number: number, topFrame: { __typename?: 'FrameType', id: string, score: number }, bottomFrame: { __typename?: 'FrameType', id: string, score: number } } | null> | null } | null> | null };
+export type GetGamesQuery = { __typename?: 'Query', games?: Array<{ __typename?: 'GameType', id: string, opponent: string, isHome: boolean, date: any, innings: Array<{ __typename?: 'InningType', number: number, topFrame: { __typename?: 'FrameType', id: string, score: number }, bottomFrame: { __typename?: 'FrameType', id: string, score: number } }> } | null> | null };
 
 export type CreateGameMutationVariables = Exact<{
   opponent: Scalars['String']['input'];

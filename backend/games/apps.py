@@ -1,5 +1,5 @@
 """
-Games app module
+games app module
 """
 
 from django.apps import AppConfig
