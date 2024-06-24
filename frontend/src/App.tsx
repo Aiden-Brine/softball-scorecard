@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import "./styles.scss";
-import GameCreationForm from "./game_creation.tsx";
+import "./styles/base.scss";
+import GameCreationForm from "./components/GameCreationForm";
 import GamePage from "./components/GamePage";
 
 const client = new ApolloClient({

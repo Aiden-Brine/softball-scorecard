@@ -1,7 +1,9 @@
 import { useRef, useState } from "react";
+
 import { GameType } from "../gql/graphql";
 import Inning from "./Inning";
 import useClickOutsideRef from "../hooks/useClickOutsideRef";
+import "../styles/game.scss";
 
 const TEAM_NAME = "Love Gloves";
 
@@ -32,14 +34,14 @@ const Game: React.FC<GameProps> = ({ game }) => {
   useClickOutsideRef(ref, () => setSelectedFrameId(null));
 
   return (
-    <table className="table game table-striped table-bordered">
+    <table className="table game table-bordered">
       <thead className="table-dark">
         <tr>
-          <th className="foo-bar text-center">Inning</th>
-          <th className="foo text-center">
+          <th className="inning-header text-center">Inning</th>
+          <th className="team-header text-center">
             {game.isHome ? game.opponent : TEAM_NAME}
           </th>
-          <th className="foo text-center">
+          <th className="team-header text-center">
             {game.isHome ? TEAM_NAME : game.opponent}
           </th>
         </tr>

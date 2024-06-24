@@ -16,11 +16,13 @@ const Inning: React.FC<InningProps> = ({
       <td className="text-center">{inning.number}</td>
       <Frame
         frame={inning.topFrame}
+        inningNumber={inning.number}
         selectedFrameId={selectedFrameId}
         setSelectedFrameId={setSelectedFrameId}
       />
       <Frame
         frame={inning.bottomFrame}
+        inningNumber={inning.number}
         selectedFrameId={selectedFrameId}
         setSelectedFrameId={setSelectedFrameId}
       />

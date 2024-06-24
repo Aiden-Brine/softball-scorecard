@@ -1,26 +1,14 @@
-import ReactDOM from "react-dom";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  gql,
-  useQuery,
-  useMutation,
-} from "@apollo/client";
-import "./game_creation.scss";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { CREATE_GAME, GAMES_LIST_QUERY } from "./games.graphql";
+import { useMutation } from "@apollo/client";
+import "../styles/game_creation_form.scss";
+import { useForm } from "react-hook-form";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-interface GameCreationFormInput {
-  Opponent: string;
-  IsHome: boolean;
-}
+import { CREATE_GAME, GAMES_LIST_QUERY } from "../games.graphql";
 
 const GameCreationForm = () => {
   const { register, handleSubmit, reset } = useForm();
-  const [createGame, { data, loading, error }] = useMutation(CREATE_GAME, {
+  const [createGame] = useMutation(CREATE_GAME, {
     refetchQueries: [GAMES_LIST_QUERY, "GetGames"],
   });
   return (
@@ -56,25 +44,3 @@ const GameCreationForm = () => {
 };
 
 export default GameCreationForm;
-
-// <form
-//   onSubmit={handleSubmit((data) => {
-//     console.log(data);
-//     createGame({
-//       variables: { opponent: data.opponent, isHome: data.isHome },
-//     });
-//     reset();
-//   })}
-// >
-//   <div className="form-group">
-//     <label>
-//       Opponent Name:
-//       <input {...register("opponent")} />
-//     </label>
-//     <label>
-//       Home Team:
-//       <input type="checkbox" {...register("isHome")} />
-//     </label>
-//     <input type="submit" />
-//   </div>
-// </form>
