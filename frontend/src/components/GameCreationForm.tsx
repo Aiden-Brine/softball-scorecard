@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/client";
-import "../styles/game_creation_form.scss";
 import { useForm } from "react-hook-form";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import "./GameCreationForm.scss";
 
 import { CREATE_GAME, GAMES_LIST_QUERY } from "../games.graphql";
 

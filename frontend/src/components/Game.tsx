@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { GameType } from "../gql/graphql";
 import Inning from "./Inning";
 import useClickOutsideRef from "../hooks/useClickOutsideRef";
-import "../styles/game.scss";
+import "./Game.scss";
 
 const TEAM_NAME = "Love Gloves";
 

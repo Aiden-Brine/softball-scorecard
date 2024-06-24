@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import "./styles/base.scss";
+import "./App.scss";
 import GameCreationForm from "./components/GameCreationForm";
 import GamePage from "./components/GamePage";
 

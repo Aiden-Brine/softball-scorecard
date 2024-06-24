@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import Game from "./Game";
 import { GAMES_LIST_QUERY } from "../games.graphql";
 import { GameType } from "../gql/graphql";
-import "../styles/game_page.scss";
+import "./GamePage.scss";
 
 const GamePage = () => {
   const { loading, error, data } = useQuery(GAMES_LIST_QUERY);

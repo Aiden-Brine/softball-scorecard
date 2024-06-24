@@ -4,7 +4,7 @@ import { faSquareMinus, faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import { FrameType } from "../gql/graphql";
 
 import { UPDATE_SCORE } from "../games.graphql";
-import "../styles/frame.scss";
+import "./Frame.scss";
 
 const MAX_SCORE = 5;
 const OPEN_INNING = 7;
@@ -41,14 +41,20 @@ const Frame: React.FC<FrameProps> = ({
       }
       id={isSelected ? "selected-cell" : ""}
       onClick={handleClick}
+      aria-label="frame"
     >
       <div className={"frame" + (isSelected ? " frame--selected" : "")}>
         {isSelected && (
           <div onClick={() => handleScoreUpdate(-1)}>
-            <button className="scoreChanger" disabled={frame.score === 0}>
+            <button
+              className="scoreChanger"
+              disabled={frame.score === 0}
+              aria-label="decrementer"
+            >
               <FontAwesomeIcon
                 icon={faSquareMinus}
                 className="scoreChangeIcon"
+                title="Decrement Score"
               />
             </button>
           </div>
@@ -56,10 +62,15 @@ const Frame: React.FC<FrameProps> = ({
         <div className="score">{frame.score}</div>
         {isSelected && (
           <div onClick={() => handleScoreUpdate(1)}>
-            <button className="scoreChanger" disabled={scoreCapped}>
+            <button
+              className="scoreChanger"
+              disabled={scoreCapped}
+              aria-label="incrementer"
+            >
               <FontAwesomeIcon
                 icon={faSquarePlus}
                 className="scoreChangeIcon"
+                title="Increment Score"
               />
             </button>
           </div>
