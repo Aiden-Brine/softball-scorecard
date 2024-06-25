@@ -131,7 +131,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-TEAM_NAME = "Love Gloves"
+TEAM_NAME = "Sluggers"
 NUM_INNINGS = 7
 
 GRAPHENE = {"SCHEMA": "backend.schema.schema"}

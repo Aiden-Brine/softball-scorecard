@@ -5,6 +5,7 @@ games app models module
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
+from django.utils import timezone
 from datetime import datetime
 
 
@@ -15,7 +16,7 @@ class Game(models.Model):
 
     opponent = models.CharField(max_length=120)
     is_home = models.BooleanField()
-    date = models.DateTimeField(default=datetime.now)
+    date = models.DateTimeField(default=timezone.now)
 
     def _str_(self) -> str:
         home_team_name, away_team_name = (

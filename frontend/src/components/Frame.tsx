@@ -3,12 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareMinus, faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import { FrameType } from "../gql/graphql";
 
-import { UPDATE_SCORE } from "../games.graphql";
+import { UPDATE_SCORE } from "../gql/games.graphql";
 import "./Frame.scss";
 
 const MAX_SCORE = 5;
 const OPEN_INNING = 7;
 
+/**
+ * Represents the top or bottom frame of an inning
+ */
 interface FrameProps {
   frame: FrameType;
   inningNumber: number;

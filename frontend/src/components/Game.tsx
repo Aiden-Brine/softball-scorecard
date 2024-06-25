@@ -5,7 +5,7 @@ import Inning from "./Inning";
 import useClickOutsideRef from "../hooks/useClickOutsideRef";
 import "./Game.scss";
 
-const TEAM_NAME = "Love Gloves";
+const TEAM_NAME = "Sluggers";
 
 interface GameProps {
   game: GameType;

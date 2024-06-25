@@ -4,8 +4,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./GameCreationForm.scss";
 
-import { CREATE_GAME, GAMES_LIST_QUERY } from "../games.graphql";
+import { CREATE_GAME, GAMES_LIST_QUERY } from "../gql/games.graphql";
 
+/**
+ * A form to create Game objects
+ */
 const GameCreationForm = () => {
   const { register, handleSubmit, reset } = useForm();
   const [createGame] = useMutation(CREATE_GAME, {
@@ -15,7 +18,6 @@ const GameCreationForm = () => {
     <Form
       className="create-form"
       onSubmit={handleSubmit((data) => {
-        console.log(data);
         createGame({
           variables: { opponent: data.opponent, isHome: data.isHome },
         });

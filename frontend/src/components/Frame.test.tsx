@@ -5,7 +5,7 @@ import Frame from "./Frame";
 import { FrameType } from "../gql/graphql";
 import { ReactNode } from "react";
 import userEvent from "@testing-library/user-event";
-import { UPDATE_SCORE } from "../games.graphql";
+import { UPDATE_SCORE } from "../gql/games.graphql";
 
 describe("Frame", () => {
   const frame: FrameType = {

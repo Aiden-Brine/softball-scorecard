@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 
 import Game from "./Game";
-import { GAMES_LIST_QUERY } from "../games.graphql";
+import { GAMES_LIST_QUERY } from "../gql/games.graphql";
 import { GameType } from "../gql/graphql";
 import "./GamePage.scss";
 

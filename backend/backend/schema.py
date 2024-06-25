@@ -21,7 +21,7 @@ class Query(graphene.ObjectType):
         Resolve a list of all Games
         """
         del info
-        return Game.objects.all()
+        return Game.objects.order_by("-date").all()
 
 
 class Mutation(graphene.ObjectType):
